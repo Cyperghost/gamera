@@ -12,10 +12,10 @@ import string, re
 # Do the right thing with boolean values for all known Python versions
 # (so this module can be copied to projects that don't depend on Python
 # 2.3, e.g. Optik and Docutils).
-try:
-    True, False
-except NameError:
-    (True, False) = (1, 0)
+# try:
+#     True, False
+# except NameError:
+#     (True, False) = (1, 0)
 
 __all__ = ['TextWrapper', 'wrap', 'fill']
 
@@ -65,10 +65,10 @@ class TextWrapper:
         be broken, and some lines might be longer than 'width'.
     """
 
-    whitespace_trans = string.maketrans(_whitespace, ' ' * len(_whitespace))
+    whitespace_trans = str.maketrans(_whitespace, ' ' * len(_whitespace))
 
     unicode_whitespace_trans = {}
-    uspace = ord(u' ')
+    uspace = ord(' ')
     for x in map(ord, _whitespace):
         unicode_whitespace_trans[x] = uspace
 
@@ -87,7 +87,7 @@ class TextWrapper:
     sentence_end_re = re.compile(r'[%s]'              # lowercase letter
                                  r'[\.\!\?]'          # sentence-ending punct.
                                  r'[\"\']?'           # optional end-of-quote
-                                 % string.lowercase)
+                                 % str.lower)
 
 
     def __init__ (self,
@@ -122,7 +122,7 @@ class TextWrapper:
         if self.replace_whitespace:
             if isinstance(text, str):
                 text = text.translate(self.whitespace_trans)
-            elif isinstance(text, unicode):
+            elif isinstance(text, str):
                 text = text.translate(self.unicode_whitespace_trans)
         return text
 
@@ -139,7 +139,7 @@ class TextWrapper:
           'use', ' ', 'the', ' ', '-b', ' ', 'option!'
         """
         chunks = self.wordsep_re.split(text)
-        chunks = filter(None, chunks)
+        chunks = [_f for _f in chunks if _f]
         return chunks
 
     def _fix_sentence_endings(self, chunks):

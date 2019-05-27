@@ -78,8 +78,7 @@ extern "C" {
 // Python Type Definition
 // -----------------------------------------------------------------------------
 static PyTypeObject GraphType = {
-  PyObject_HEAD_INIT(NULL)
-  0,
+		PyVarObject_HEAD_INIT(NULL, 0)
 };
 
 
@@ -338,7 +337,7 @@ PyGetSetDef graph_getset[] = {
 
 // -----------------------------------------------------------------------------  
 void init_GraphType(PyObject* d) {
-  GraphType.ob_type = &PyType_Type;
+  Py_TYPE(&GraphType) = &PyType_Type;
   GraphType.tp_name = CHAR_PTR_CAST "gamera.graph.Graph";
   GraphType.tp_basicsize = sizeof(GraphObject);
   GraphType.tp_dealloc = graph_dealloc;
@@ -587,7 +586,7 @@ PyObject* graph_remove_node(PyObject* self, PyObject* a) {
    }
    catch (std::runtime_error e) {
       PyErr_SetString(PyExc_ValueError, e.what());
-      return NULL; 
+      return NULL;
    }
    RETURN_VOID();
 }
@@ -650,7 +649,7 @@ PyObject* graph_add_edges(PyObject* self, PyObject* args) {
    size_t list_size = PySequence_Fast_GET_SIZE(seq);
    size_t result = 0;
    for (size_t i = 0; i < list_size; ++i)
-      result += PyInt_AsUnsignedLongMask(graph_add_edge(self, PySequence_Fast_GET_ITEM(seq, i)));
+      result += PyLong_AsUnsignedLongMask(graph_add_edge(self, PySequence_Fast_GET_ITEM(seq, i)));
    
    Py_DECREF(seq);
 
@@ -887,7 +886,7 @@ PyObject* graph_get_node(PyObject* self, PyObject* pyobject) {
    if(node == NULL) {
 
       PyErr_SetString(PyExc_ValueError, "There is no node associated with the given value");
-      return NULL; 
+      return NULL;
    }
    PyObject* ret = node_deliver(node, so);
 //   Py_DECREF(pyobject);
@@ -1032,7 +1031,7 @@ PyObject* graph_size_of_subgraph(PyObject* self, PyObject* node) {
 
 static PyObject* graph_has_flag(PyObject* self, PyObject* pyobject) {
    INIT_SELF_GRAPH();
-   flag_t flag = (flag_t)PyInt_AsUnsignedLongMask(pyobject);
+   flag_t flag = (flag_t)PyLong_AsUnsignedLongMask(pyobject);
    RETURN_BOOL(so->_graph->has_flag(flag)); 
 }
 

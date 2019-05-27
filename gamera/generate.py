@@ -19,15 +19,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 
-from pyplate import *
+from .pyplate import *
 from os import path
-import os
 import sys
-import re
 from distutils.core import Extension
 from distutils.dep_util import newer
-from distutils import sysconfig
-from gamera import paths, args_wrappers
 
 global std_import
 global plugins_to_ignore
@@ -309,10 +305,10 @@ def generate_plugin(plugin_filename, location, compiling_gamera,
         break
 
   if regenerate:
-    print "generating wrappers for", module_name, "plugin"
+    print("generating wrappers for", module_name, "plugin")
     template.execute_file(cpp_filename, plugin_module.__dict__)
   else:
-    print "skipping wrapper generation for", module_name, "plugin (output up-to-date)"
+    print("skipping wrapper generation for", module_name, "plugin (output up-to-date)")
 
   # make the a distutils extension class for this plugin
   cpp_files = [cpp_filename]

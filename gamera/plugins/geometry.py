@@ -30,7 +30,7 @@ except Exception:
 
 
 class voronoi_from_labeled_image(PluginFunction):
-  u"""
+  """
   Computes the area Voronoi tesselation from an image containing labeled
   Cc's. In the returned onebit image, every pixel is labeled with the
   label value of the closest Cc in the input image.
@@ -42,7 +42,7 @@ class voronoi_from_labeled_image(PluginFunction):
   .. __: segmentation.html#cc-analysis
 
   The implementation applies a watershed algorithm to the distance transform
-  of the input image, a method known as *seeded region growing* (U. K\u00f6the:
+  of the input image, a method known as *seeded region growing* (U. K\\u00f6the:
   *Primary Image Segmentation.* Proceedings 17th DAGM-Symposium, pp. 554-561,
   Springer, 1995).
 
@@ -72,7 +72,7 @@ class voronoi_from_labeled_image(PluginFunction):
     voronoi_cells.highlight(voronoi_edges, RGBPixel(255,255,255))
     return [image, voronoi_cells]
   doc_examples = [__doc_example1__]
-  author = u"Christoph Dalitz, based on code by Ullrich K\u00f6the"
+  author = "Christoph Dalitz, based on code by Ullrich K\\u00f6the"
 
 class voronoi_from_points(PluginFunction):
   """

@@ -340,7 +340,7 @@ PyObject* graph_get_color(PyObject* self, PyObject* pyobject) {
 
 PyObject* graph_colorize(PyObject* self, PyObject* pyobject) {
    INIT_SELF_GRAPH();
-   unsigned int ncolors = PyInt_AsUnsignedLongMask(pyobject);
+   unsigned int ncolors = PyLong_AsUnsignedLongMask(pyobject);
    try {
       so->_graph->colorize(ncolors);
       RETURN_VOID();

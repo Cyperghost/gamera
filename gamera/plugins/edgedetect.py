@@ -27,14 +27,14 @@ import _edgedetect
 # Edge detection methods
 
 class difference_of_exponential_edge_image(PluginFunction):
-      u"""
+      """
       EXPERIMENTAL
 
       Detect and mark edges in an edge image using the Shen/Castan
       zero-crossing detector.
 
       Uses code from the VIGRA Computer Vision Library (Copyright
-      1998-2007 by Ullrich K\u00f6the).
+      1998-2007 by Ullrich K\\u00f6the).
 
       *scale*
         The scale relates to the value b of the exponential filter.
@@ -61,13 +61,13 @@ class difference_of_exponential_edge_image(PluginFunction):
       doc_examples = [(GREYSCALE,)]
 
 class difference_of_exponential_crack_edge_image(PluginFunction):
-      u"""EXPERIMENTAL
+      """EXPERIMENTAL
 
       Detect and mark edges in a crack edge image using the
       Shen/Castan zero-crossing detector.
 
       Uses code from the VIGRA Computer Vision Library (Copyright
-      1998-2007 by Ullrich K\u00f6the).
+      1998-2007 by Ullrich K\\u00f6the).
 
       *scale*
 	The scale relates to the value b of the exponential filter.
@@ -104,12 +104,12 @@ class difference_of_exponential_crack_edge_image(PluginFunction):
       doc_examples = [(GREYSCALE,)]
 
 class canny_edge_image(PluginFunction):
-      u"""EXPERIMENTAL
+      """EXPERIMENTAL
 
       Detect and mark edges in an edge image using Canny's algorithm.
 
       Uses code from the VIGRA Computer Vision Library (Copyright
-      1998-2007 by Ullrich K\u00f6the).
+      1998-2007 by Ullrich K\\u00f6the).
 
       *scale*
 	The scale relates to the value b of the exponential filter.
@@ -171,7 +171,7 @@ class EdgeDetect(PluginModule):
                    canny_edge_image,
                    labeled_region_edges,
                    outline]
-      author = u"Ullrich K\u00f6the (wrapped by Robert Ferguson)"
+      author = "Ullrich K\\u00f6the (wrapped by Robert Ferguson)"
       url = "http://gamera.sourceforge.net/"
 module = EdgeDetect()
 

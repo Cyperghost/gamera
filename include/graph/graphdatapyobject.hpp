@@ -21,6 +21,7 @@
 
 #include <Python.h>
 #include "graphdata.hpp"
+#include <gameramodule.hpp>
 
 namespace Gamera { namespace GraphApi {
 

@@ -32,8 +32,8 @@ from distutils import sysconfig
 #sys.exit(0)
 
 if sys.hexversion < 0x02030000:
-   print "At least Python 2.3 is required to build Gamera.  You have"
-   print sys.version
+   print("At least Python 2.3 is required to build Gamera.  You have")
+   print(sys.version)
    sys.exit(1)
 
 cross_compiling = False
@@ -71,7 +71,7 @@ for argument in sys.argv:
       no_wx = True
       sys.argv.remove(argument)
 open("gamera/__version__.py", "w").write("ver = '%s'\n\n" % gamera_version)
-print "Gamera version:", gamera_version
+print("Gamera version:", gamera_version)
 
 # query OpenMP (parallelization) support and save it to compile time config file
 if has_openmp is None:
@@ -86,10 +86,10 @@ f = open("gamera/__compiletime_config__.py", "w")
 f.write("# automatically generated configuration at compile time\n")
 if has_openmp:
     f.write("has_openmp = True\n")
-    print "Compiling genetic algorithms with parallelization (OpenMP)"
+    print("Compiling genetic algorithms with parallelization (OpenMP)")
 else:
     f.write("has_openmp = False\n")
-    print "Compiling genetic algorithms without parallelization (OpenMP)"
+    print("Compiling genetic algorithms without parallelization (OpenMP)")
 f.close()
 
 from distutils.core import setup, Extension
@@ -148,7 +148,7 @@ for util in command_line_utils:
    fd = open(file, 'w')
    fd.write(content % info)
    fd.close()
-os.chmod(file, 0700)
+os.chmod(file, 0o700)
 
 scripts = [x[command_line_filename_at] for x in command_line_utils] + ['gamera_post_install.py']
 
@@ -156,8 +156,8 @@ scripts = [x[command_line_filename_at] for x in command_line_utils] + ['gamera_p
 # generate the plugins
 plugin_extensions = []
 plugins = gamera_setup.get_plugin_filenames('gamera/plugins/')
-plugin_extensions = gamera_setup.generate_plugins(
-   plugins, "gamera.plugins", True)
+# plugin_extensions = gamera_setup.generate_plugins(
+#    plugins, "gamera.plugins", True)
 
 ########################################
 # Non-plugin extensions
@@ -194,36 +194,38 @@ else:
                       )
 
 
-extensions = [Extension("gamera.gameracore",
-                        ["src/gameramodule.cpp",
-                         "src/sizeobject.cpp",
-                         "src/pointobject.cpp",
-                         "src/floatpointobject.cpp",
-                         "src/dimobject.cpp",
-                         "src/rectobject.cpp",
-                         "src/regionobject.cpp",
-                         "src/regionmapobject.cpp",
-                         "src/rgbpixelobject.cpp",
-                         "src/imagedataobject.cpp",
-                         "src/imageobject.cpp",
-                         "src/imageinfoobject.cpp",
-                         "src/iteratorobject.cpp"
-                         ],
-                        include_dirs=["include"],
-                        **gamera_setup.extras
-                        ),
-              Extension("gamera.knncore", 
-                        ["src/knncoremodule.cpp"],
-                        include_dirs=["include", "src"],
-                        **gamera_setup.extras
-                        ),
-              ExtGA,
+extensions = [
+    # Extension("gamera.gameracore",
+#                         ["src/gameramodule.cpp",
+#                          "src/sizeobject.cpp",
+#                          "src/pointobject.cpp",
+#                          "src/floatpointobject.cpp",
+#                          "src/dimobject.cpp",
+#                          "src/rectobject.cpp",
+#                          "src/regionobject.cpp",
+#                          "src/regionmapobject.cpp",
+#                          "src/rgbpixelobject.cpp",
+#                          "src/imagedataobject.cpp",
+#                          "src/imageobject.cpp",
+#                          "src/imageinfoobject.cpp",
+#                          "src/iteratorobject.cpp"
+#                          ],
+#                         include_dirs=["include"],
+#                         **gamera_setup.extras
+#                         ),
+#               Extension("gamera.knncore",
+#                         ["src/knncoremodule.cpp"],
+#                         include_dirs=["include", "src"],
+#                         **gamera_setup.extras
+#                         ),
+#               ExtGA,
               Extension("gamera.graph", graph_files,
                         include_dirs=["include", "src", "include/graph", "src/graph/graphmodule"],
                         **gamera_setup.extras),
-              Extension("gamera.kdtree", kdtree_files,
-                        include_dirs=["include", "src", "include/geostructs"],
-                        **gamera_setup.extras)]
+              # Extension("gamera.kdtree", kdtree_files,
+              #           include_dirs=["include", "src", "include/geostructs"],
+              #           **gamera_setup.extras)
+]
 extensions.extend(plugin_extensions)
 
 ##########################################
@@ -248,16 +250,19 @@ else:
 includes = [(os.path.join(gamera_setup.include_path, path),
              glob.glob(os.path.join("include", os.path.join(path, ext))))
             for path, ext in
-            ("", "*.hpp"),
-            ("plugins", "*.hpp"),
-            ("vigra", "*.hxx"),
-            ("geostructs", "*.hpp"),
-            ("graph", "*.hpp")]
+            {("", "*.hpp"),
+            # ("plugins", "*.hpp"),
+            # ("vigra", "*.hxx"),
+            # ("geostructs", "*.hpp"),
+            ("graph", "*.hpp")}]
 
 srcfiles = [(os.path.join(gamera_setup.lib_path,path),
              glob.glob(os.path.join(path, ext)))
             for path, ext in
-            [("src/geostructs", "*.cpp"), ("src/graph", "*.cpp")]]
+            [
+                # ("src/geostructs", "*.cpp"),
+                ("src/graph", "*.cpp")
+            ]]
 
 packages = ['gamera', 'gamera.gui', 'gamera.gui.gaoptimizer', 'gamera.plugins',
             'gamera.toolkits', 'gamera.backport']
@@ -283,7 +288,7 @@ setup(cmdclass = gamera_setup.cmdclass,
       author_email = "gamera-devel@yahoogroups.com",
       ext_modules = extensions,
       description = description,
-      packages = packages,
+      # packages = packages,
       scripts = scripts,
       package_data = package_data,
       data_files = data_files

@@ -50,8 +50,8 @@ struct NTIteratorObject: IteratorObject {
          Py_INCREF(_graph);
    };
    static PyObject* next(IteratorObject* self) {
-      if(self == NULL || ((NTIteratorObject*)self)->_iterator == NULL) 
-        return NULL; 
+      if(self == NULL || ((NTIteratorObject*)self)->_iterator == NULL)
+        return NULL;
       Node *n = ((NTIteratorObject*)self)->_iterator->next();
       if (n == NULL)
          return NULL;

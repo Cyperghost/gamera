@@ -42,8 +42,7 @@ extern "C" {
 /* Python Type Definition                                                     */
 // -----------------------------------------------------------------------------
 static PyTypeObject NodeType = {
-   PyObject_HEAD_INIT(NULL)
-   0,
+		PyVarObject_HEAD_INIT(NULL, 0)
 };
 
 
@@ -73,7 +72,7 @@ PyGetSetDef node_getset[] = {
 
 // -----------------------------------------------------------------------------
 void init_NodeType() {
-   NodeType.ob_type = &PyType_Type;
+   Py_TYPE(&NodeType) = &PyType_Type;
    NodeType.tp_name = CHAR_PTR_CAST "gamera.graph.Node";
    NodeType.tp_basicsize = sizeof(NodeObject);
    NodeType.tp_dealloc = node_dealloc;
@@ -227,7 +226,7 @@ static PyObject* node___repr__(PyObject* self) {
    PyObject* data = node_get_data(self);
    PyObject* repr = PyObject_Repr(data);
    Py_INCREF(repr);
-   PyObject* ret = PyString_FromFormat("<Node of %s>", PyString_AsString(repr));
+   PyObject* ret = PyUnicode_FromFormat("<Node of %s>", PyUnicode_AsUTF8(repr));
    Py_DECREF(repr);
    Py_DECREF(data);
    return ret;

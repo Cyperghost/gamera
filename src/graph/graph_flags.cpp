@@ -273,7 +273,7 @@ void Graph::make_singly_connected() {
       }
    }
    else {
-      while((e = it->next()) != NULL) {  
+      while((e = it->next()) != NULL) {
          edgepair ep(std::min(e->from_node, e->to_node), 
                      std::max(e->from_node, e->to_node));
          if(edgeset.count(ep) > 0)

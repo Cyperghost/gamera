@@ -173,7 +173,7 @@ void Node::remove_self(bool glue) {
             e->from_node->_edges.remove(e);
      
          e->to_node = NULL;
-         e->from_node = NULL; 
+         e->from_node = NULL;
          _graph->_edges.remove(e);
          e->weight = 2000;
          delete e;
